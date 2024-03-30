@@ -26,12 +26,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const port = 4000;
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true });
-/*mongoose.connect('mongodb+srv://ashiagarwal1234:brH7df6aO9z5b5Oz@cluster0.irnegan.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true });*/ // 30 seconds timeout
+mongoose.connect('mongodb://127.0.0.1:27017');
 
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
+  likedPets: [{type:mongoose.Schema.Types.ObjectId, ref: 'Pets'}],
   addresses: [{ street: String, city: String, country: String }],
   cart: [String], // Store cart item IDs as strings
   cardEntries: [{
@@ -49,11 +49,50 @@ const userSchema = new mongoose.Schema({
 
 
 const Users = mongoose.model('Users', userSchema);
-const Pets = mongoose.model('Pets', { pname: String, pdesc: String, price: String, category: String, pimage: String });
+const Pets = mongoose.model('Pets', { pname: String, pdesc: String, price: String, category: String, contactNumber: String ,pimage: String });
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
+
+app.post('/like-pet', (req, res) => {
+  let { petId, userId } = req.body;
+
+  console.log(req.body);
+
+  Users.updateOne({ _id: userId }, { $addToSet: { likedPets: petId } })
+    .then(() => {
+      res.send({ message: 'liked success.' });
+    })
+    .catch(() => {
+      res.send({ message: 'server err' });
+    });
+});
+
+app.post('/liked-pets', (req,res) => {
+  Users.findOne({ _id: req.body.userId }).populate('likedPets')
+  .then((result) => {
+      res.send({ message: 'success', pets: result.likedPets })
+  })
+  .catch((err) => {
+      res.send({ message: 'server err' })
+  })
+});
+
+app.post('/remove-from-wishlist', (req, res) => {
+  const { petId, userId } = req.body;
+
+  Users.updateOne({ _id: userId }, { $pull: { likedPets: petId } })
+    .then(() => {
+      res.send({ message: 'Pet removed from wishlist successfully.' });
+    })
+    .catch((error) => {
+      console.error('Error removing pet from wishlist:', error);
+      res.status(500).send({ message: 'Server error' });
+    });
+});
+
+
 
 app.post('/add-address', async (req, res) => {
   const { street, city, country } = req.body;
@@ -201,19 +240,27 @@ app.get('/get-pet/:id', (req, res) => {
     });
 });
 
-app.post('/signup',
-async (req, res) => {
+
+app.post('/signup', async (req, res) => {
   const { username, password } = req.body;
   try {
+    // Check if the username already exists
+    const existingUser = await Users.findOne({ username });
+    if (existingUser) {
+      return res.status(400).send({ message: 'Username already exists' });
+    }
+
+    // If username doesn't exist, hash the password and save the user
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new Users({ username: username, password: hashedPassword });
+    const user = new Users({ username, password: hashedPassword });
     await user.save();
-    res.send({ message: 'saved successfully' });
+    res.send({ message: 'Saved successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: 'server err' });
+    res.status(500).send({ message: 'Server error' });
   }
 });
+
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;

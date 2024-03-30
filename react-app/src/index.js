@@ -21,6 +21,7 @@ import ProductDetailPage from "./components/ProductDetailPage";
 import Account from "./components/Account";
 import Payment from "./components/Payment"; // Import PaymentPage component
 import OrderComplete from "./components/OrderComplete"; // Import OrderComplete component
+import LikedPets from "./components/LikedPets";
 
 // Define initial state for the cart
 const initialCartState = [];
@@ -55,6 +56,7 @@ const router = createBrowserRouter([
   { path: "/product/:productId", element: <ProductDetailPage /> },
   { path: "/account", element: <Account /> },
   { path: "/payment", element: <Payment /> },
+  {path: "/liked-pets", element: <LikedPets/>},
   { path: "/ordercomplete", element: <OrderComplete /> } // Add route for OrderCompletePage
 ]);
 

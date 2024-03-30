@@ -15,6 +15,7 @@ function Login() {
         if (res.data.message) {
           if (res.data.token) {
             localStorage.setItem('token', res.data.token);
+            localStorage.setItem('userId', res.data.userId);
             window.location.href = '/'; // Redirect to home page after successful login
           }
         }
@@ -28,7 +29,7 @@ function Login() {
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
       <MDBInput
         wrapperClass="mb-4"
-        label="Email address"
+        label="Username"
         id="form1"
         type="email"
         value={username}
@@ -46,11 +47,6 @@ function Login() {
           setPassword(e.target.value);
         }}
       />
-
-      <div className="d-flex justify-content-between mx-3 mb-4">
-        <MDBCheckbox name="flexCheck" value="" id="flexCheckDefault" label="Remember me" />
-        <a href="!#">Forgot password?</a>
-      </div>
 
       <MDBBtn className="mb-4 btn-danger btn-outline-warning text-light" onClick={handleApi}>
         Log In
