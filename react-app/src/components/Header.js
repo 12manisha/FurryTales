@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons"; // Import user icon
+import { faShoppingCart, faUser, faHeart } from "@fortawesome/free-solid-svg-icons"; // Import user icon
 import { MDBBtn } from "mdb-react-ui-kit";
+
 
 function Header({ title, showCart = true, showLogin = true }) {
   const handleLogout = () => {
@@ -14,8 +15,8 @@ function Header({ title, showCart = true, showLogin = true }) {
     <div className="header">
       <nav style={{ backgroundColor: "#34495E" }} className="navbar navbar-expand-lg">
         <div className="container-fluid">
-          <Link className="navbar-brand text-light" to="/">
-            FurryTales
+          <Link className="navbar-brand text-light" to="/" style={{fontWeight:600}}>
+            <h3>FurryTales</h3>
           </Link>
           <button
             className="navbar-toggler text-light"
@@ -66,10 +67,10 @@ function Header({ title, showCart = true, showLogin = true }) {
             </ul>
 
             {/* My Account icon */}
-            <Link
+            <Link 
               to="/Account"
               className="btn btn-danger btn-outline-warning text-light"
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: "none", marginRight:'10px' }}
             >
               <FontAwesomeIcon icon={faUser} />
             </Link>
@@ -79,11 +80,21 @@ function Header({ title, showCart = true, showLogin = true }) {
               <Link
                 to="/cart"
                 className="btn btn-danger btn-outline-warning text-light"
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: "none", marginRight:'10px' }}
               >
                 <FontAwesomeIcon icon={faShoppingCart} />
               </Link>
             )}
+
+            {showCart && (
+              <Link
+                to="/liked-pets"
+                className="btn btn-danger btn-outline-warning text-light"
+                style={{ textDecoration: "none", marginRight:'10px' }}
+              >
+                <FontAwesomeIcon icon={faHeart} />
+              </Link>
+            )}  
 
             {showLogin && !localStorage.getItem("token") ? (
               <Link

@@ -1,59 +1,50 @@
 import React, { useState } from 'react';
-import {
-  MDBContainer,
-  MDBInput,
-  MDBCheckbox,
-  MDBBtn
-}
-from 'mdb-react-ui-kit';
+import { MDBContainer, MDBInput, MDBCheckbox, MDBBtn } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
-import axios from "axios"
+import axios from "axios";
 
 function Signup() {
-
-    const [username, setusername] = useState('');
-    const [ password, setpassword] = useState('');
-
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleApi = () => {
-        console.log(username, password);
-        const url ='http://localhost:4000/signup';
-        const data ={username, password};
-        axios.post(url, data)
-        .then((res) => {
-            console.log(res.data)
-            if(res.data.message){
-                alert(res.data.message)
-            }
-        })
-        .catch((err) =>{
-            console.log(err)
-            alert('Server err')
-            })
-    }
+      const url = 'http://localhost:4000/signup';
+      const data = { username, password };
+      
+      axios.post(url, data)
+      .then((res) => {
+          if (res.data.message) {
+              alert(res.data.message);
+          }
+      })
+      .catch((err) => {
+          if (err.response && err.response.data && err.response.data.message) {
+              setErrorMessage(err.response.data.message);
+          } else {
+              setErrorMessage('Server error. Please try again later.');
+          }
+      });
+  };
+  
 
-  return (
-    <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
+    return (
+        <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
+            <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='email' value={username}
+                onChange={(e) => setUsername(e.target.value)} />
+            <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' value={password}
+                onChange={(e) => setPassword(e.target.value)} />
 
-      <MDBInput wrapperClass='mb-4' label='Email address' id='form1' type='email' value={username}
-       onChange={(e) => { setusername(e.target.value)}} />
-      <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' value={password}
-       onChange={(e) => setpassword(e.target.value)} />
 
-      <div className="d-flex justify-content-between mx-3 mb-4">
-        <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
-        <a href="!#">Forgot password?</a>
-      </div>
+            <MDBBtn className="mb-4 btn-danger btn-outline-warning text-light" onClick={handleApi}>Sign up</MDBBtn>
 
-      <MDBBtn className="mb-4 btn-danger btn-outline-warning text-light" onClick={handleApi} >Sign up</MDBBtn>
+            {errorMessage && <p className="text-danger">{errorMessage}</p>}
 
-      <div className="text-center">
-        <p>Already a member? <Link to="/login" > Login </Link> </p>
-
-      </div>
-
-    </MDBContainer>
-  );
+            <div className="text-center">
+                <p>Already a member? <Link to="/login">Login</Link></p>
+            </div>
+        </MDBContainer>
+    );
 }
 
 export default Signup;

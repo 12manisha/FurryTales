@@ -26,6 +26,21 @@ function PetDetail() {
         fetchPetDetails();
     }, [petId]);
 
+    const handleLike = (petId) => {
+        let userId = localStorage.getItem('userId');
+        console.log('userId', 'petId', petId, userId)
+        const url = 'http://localhost:4000/like-pet'
+        const data = {userId, petId}
+        axios.post(url,data)
+            .then((res) => {
+                console.log('liked');
+            })
+            .catch((err) => {
+                alert('server err')
+            })
+
+    }
+
     return (
         <>
             <Header />
@@ -40,7 +55,8 @@ function PetDetail() {
                             <h5>{pet.pname}</h5>
                             <p>{pet.pdesc}</p>
                             <p>Category: {pet.category}</p>
-                            <p className="text-danger">Price: Rs. {pet.price}, To Buy Contact on this number - {contactNumber}</p>
+                            <p className="text-danger">Price: Rs. {pet.price}, To Buy Contact on this number - {pet.contactNumber}</p>
+                            <button onClick={() => handleLike(pet._id)} >Wishlist</button>
                         </div>
                     </div>
                 ) : (
