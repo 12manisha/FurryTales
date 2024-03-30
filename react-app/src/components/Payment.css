@@ -83,3 +83,6 @@
   width: 100%; /* Ensure footer spans the full width of the viewport */
   text-align: center; /* Center-align footer content */
 }
+.error-message {
+  color: red;
+}

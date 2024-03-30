@@ -41,3 +41,60 @@
 .checkout-btn {
   margin-left: auto;
 }
+
+/* Add CSS for the buttons */
+.quantity-controls button {
+  background-color: #4caf50; /* Green background color */
+  color: #fff; /* White text color */
+  border: none; /* Remove button border */
+  padding: 8px 16px; /* Add padding to buttons */
+  cursor: pointer; /* Add pointer cursor on hover */
+  border-radius: 4px; /* Add rounded corners */
+  transition: background-color 0.3s, color 0.3s; /* Add transition effect */
+}
+
+.quantity-controls button:hover {
+  background-color: #45a049; /* Darker green color on hover */
+}
+
+.quantity-controls button:active {
+  background-color: #39843e; /* Even darker green color when clicked */
+}
+
+/* Add CSS for the cart item quantity display */
+.quantity-controls p {
+  margin: 0; /* Remove margin for cleaner display */
+  font-size: 16px; /* Adjust font size for better readability */
+}
+.quantity-controls {
+  display: flex; /* Use flexbox layout */
+  align-items: center; /* Align items vertically */
+}
+
+.quantity-btn {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  margin:5px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.quantity-btn:hover {
+  background-color: #45a049;
+}
+
+.quantity-btn:active {
+  background-color: #39843e;
+}
+
+.quantity {
+  margin: 20px 70px; /* Add margin for spacing between buttons */
+  padding-left: 60px;
+}
+.quantity-btn minus
+{
+  margin-right:40px ;
+}
