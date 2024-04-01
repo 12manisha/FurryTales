@@ -6,7 +6,8 @@ import Header from "./Header";
 function PetDetail() {
     const { petId } = useParams();
     const [pet, setPet] = useState(null);
-    const [contactNumber, setcontactNumber] = useState(null);
+    const [contactNumber, setContactNumber] = useState(null);
+    const [isAddedToWishlist, setIsAddedToWishlist] = useState(false); // State to track wishlist status
 
     useEffect(() => {
         const fetchPetDetails = async () => {
@@ -15,7 +16,7 @@ function PetDetail() {
                 console.log("Pet API Response:", petResponse.data);
                 if (petResponse.data.pet) {
                     setPet(petResponse.data.pet);
-                    setcontactNumber(petResponse.data.contactNumber); // Assuming contactNumber is returned from the API
+                    setContactNumber(petResponse.data.contactNumber); // Assuming contactNumber is returned from the API
                 }
             } catch (error) {
                 console.error("Pet API Error:", error);
@@ -34,11 +35,11 @@ function PetDetail() {
         axios.post(url,data)
             .then((res) => {
                 console.log('liked');
+                setIsAddedToWishlist(true); // Set the state to indicate pet is added to wishlist
             })
             .catch((err) => {
                 alert('server err')
             })
-
     }
 
     return (
@@ -55,8 +56,8 @@ function PetDetail() {
                             <h5>{pet.pname}</h5>
                             <p>{pet.pdesc}</p>
                             <p>Category: {pet.category}</p>
-                            <p className="text-danger">Price: Rs. {pet.price}, To Buy Contact on this number - {pet.contactNumber}</p>
-                            <button onClick={() => handleLike(pet._id)} >Wishlist</button>
+                            <p className="text-danger">Price: Rs. {pet.price}, To Buy Contact on this number - {contactNumber}</p>
+                            <button onClick={() => handleLike(pet._id)} style={{backgroundColor: isAddedToWishlist ? 'green' : 'initial'}}>Wishlist</button>
                         </div>
                     </div>
                 ) : (
