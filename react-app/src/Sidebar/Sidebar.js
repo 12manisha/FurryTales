@@ -73,8 +73,8 @@ function Sidebar({ setSelectedCategory, setSelectedPriceRange, setSelectedColor 
         </Dropdown>
       </div>
       <div className="filter-box">
-        <h5 className="filter-box-title">Color</h5>
-        <Dropdown onSelect={handleColorChange}>
+        <h5 className="filter-box-title" style={{marginLeft:'-2rem'}}>Color</h5>
+        <Dropdown onSelect={handleColorChange} style={{marginLeft:'-2rem'}}>
           <Dropdown.Toggle variant="light" id="color-dropdown">
             Select Color
           </Dropdown.Toggle>

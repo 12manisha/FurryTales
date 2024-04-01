@@ -1,9 +1,18 @@
-import React from 'react'
+// ProductButtons.js
 
-function ProductButtons({onClickHandler,value,title}) {
+import React from 'react';
+import "./ProductButtons.css";
+
+function ProductButtons({ onClickHandler, value, title, selected }) {
   return (
-   <button className="btns" onClick={onClickHandler} value={value}>{title}</button>
-  )
+    <button 
+      className={`product-button ${selected ? 'selected' : ''}`} 
+      onClick={onClickHandler} 
+      value={value}
+    >
+      {title}
+    </button>
+  );
 }
 
-export default ProductButtons
+export default ProductButtons;

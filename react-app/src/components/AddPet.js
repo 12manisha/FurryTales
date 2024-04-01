@@ -24,8 +24,9 @@ function AddPet() {
         formData.append('pdesc', pdesc);
         formData.append('price', price);
         formData.append('category', category);
-        formData.append('contactNumber', contactNumber); // Append contact number to form data
+        formData.append('contactNumber', contactNumber); 
         formData.append('pimage', pimage);
+        formData.append('userId', localStorage.getItem('userId'))
 
         const url = 'http://localhost:4000/add-pet';
 

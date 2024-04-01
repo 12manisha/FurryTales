@@ -49,7 +49,20 @@ const userSchema = new mongoose.Schema({
 
 
 const Users = mongoose.model('Users', userSchema);
-const Pets = mongoose.model('Pets', { pname: String, pdesc: String, price: String, category: String, contactNumber: String ,pimage: String });
+
+const schema = new mongoose.Schema({
+  pname: String,
+  pdesc: String,
+  price: String,
+  category: String,
+  contactNumber: String,
+  pimage: String,
+  addedBy: String,
+});
+
+const Pets = mongoose.model('Pets', schema);
+
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -78,6 +91,36 @@ app.post('/liked-pets', (req,res) => {
       res.send({ message: 'server err' })
   })
 });
+
+app.post('/my-pets', (req,res) => {
+  const userId = req.body.userId;
+
+  Pets.find({ addedBy: userId })
+      .then((result) => {
+          res.send({ message: 'success', pets: result })
+      })
+      .catch((err) => {
+          res.send({ message: 'server err' })
+      })
+
+});
+
+app.post('/remove-pet', (req, res) => {
+  const { petId } = req.body;
+
+  Pets.findByIdAndDelete(petId)
+    .then((removedPet) => {
+      if (!removedPet) {
+        return res.status(404).send({ message: 'Pet not found.' });
+      }
+      res.send({ message: 'Pet removed successfully.' });
+    })
+    .catch((error) => {
+      console.error('Error removing pet:', error);
+      res.status(500).send({ message: 'Server error' });
+    });
+});
+
 
 app.post('/remove-from-wishlist', (req, res) => {
   const { petId, userId } = req.body;
@@ -188,9 +231,10 @@ app.get('/get-addresses', async (req, res) => {
 app.post('/add-pet', upload.single('pimage'), function (req, res) {
   console.log(req.file, req.body);
   const { pname, pdesc, price, category, contactNumber } = req.body;
+  const addedBy = req.body.userId;
   const pimage = req.file.path;
 
-  const pet = new Pets({ pname, pdesc, price, category, pimage, contactNumber });
+  const pet = new Pets({ pname, pdesc, price, category, pimage, contactNumber, addedBy });
   pet.save()
     .then(() => {
       res.send({ message: 'Pet saved successfully' });

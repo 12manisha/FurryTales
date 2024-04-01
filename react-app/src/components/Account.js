@@ -71,7 +71,7 @@ function Account() {
           <h1 style={headingStyle}>My Account</h1>
         </div>
         <div style={emailBoxStyle}>
-          <p style={emailHeadingStyle}>Email</p>
+          <h2 style={{color: '#34495E'}} >Email</h2>
           <p style={emailContentStyle}>{email}</p>
         </div>
         <div style={addressContainerStyle}>
@@ -102,16 +102,22 @@ function Account() {
                     <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} />
                   </label>
                   <br />
+                  <div>
                   <button type="submit">Add Address</button>
+                  </div>
+                  
                 </form>
               </div>
             )}
           </div>
         </div>
+        <div style={emailBoxStyle}>
+          <h2 style={{marginBottom:'20px', color: '#34495E'}}> Edit Pets </h2>
+        <Link to="/my-pets" style={{ ...buttonStyle, backgroundColor: '#34495E', margin:'50px' }}>My Pets</Link>
       </div>
-      <div style={buttonContainerStyle}>
-        <Link to="/cart" style={{ ...buttonStyle, backgroundColor: '#34495E' }}>Go to Cart</Link>
       </div>
+     
+
     </div>
   );
 }
@@ -120,7 +126,8 @@ const containerStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  paddingTop: '50px',
+  paddingTop: '8px',
+
 };
 
 const accountBoxStyle = {
@@ -136,20 +143,15 @@ const emailBoxStyle = {
   backgroundColor: '#ffffff',
   padding: '20px',
   textAlign: 'center',
-  marginBottom: '20px'
+  marginBottom: '20px',
+  width:'500px'
 };
 
-const emailHeadingStyle = {
-  fontWeight: 'bold'
-};
 
 const emailContentStyle = {
   marginBottom: '0'
 };
 
-const buttonContainerStyle = {
-  textAlign: 'center'
-};
 
 const buttonStyle = {
   backgroundColor: '#34495E',
@@ -173,7 +175,8 @@ const addressBoxStyle = {
   backgroundColor: '#ffffff',
   padding: '20px',
   textAlign: 'center',
-  marginBottom: '20px'
+  marginBottom: '20px',
+  width:'500px'
 };
 
 export default Account;

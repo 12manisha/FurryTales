@@ -71,18 +71,21 @@ function Adopt() {
       <Header search={search} handlesearch={handleSearch} handleClick={applyFilters} />
       <Categories handleCategory={handleCategory} selectedCategory={selectedCategory} />
 
-      <h2>MY PETS: </h2>
+      <h2 style={{color:'#34495E', margin:'1rem'}}>MY PETS: </h2>
       <Row>
         {filteredPets.length > 0 ?
           (filteredPets.map((item, index) => (
             <Col md={4} key={index}>
-              <Card onClick={() => handlePet(item._id)} style={{height:'600px'}}>
+              <Card onClick={() => handlePet(item._id)} style={{height:'500px'}}>
                 <Card.Img width="300px" height="200px" src={`http://localhost:4000/${item.pimage}`} alt="" />
                 <Card.Body>
-                  <Card.Title>{item.pname} | {item.category}</Card.Title>
-                  <Card.Text className="text-danger">{item.price}</Card.Text>
-                  <Card.Text className="text-success">{item.pdesc}</Card.Text>
-                </Card.Body>
+  <Card.Title>{item.pname} | {item.category}</Card.Title>
+  <Card.Text className="text-danger">Rs. {item.price}</Card.Text>
+  <Card.Text className="text-success">
+    {item.pdesc.length > 100 ? item.pdesc.slice(0, 100) + "..." : item.pdesc}
+  </Card.Text>
+</Card.Body>
+
               </Card>
             </Col>
           ))) :
