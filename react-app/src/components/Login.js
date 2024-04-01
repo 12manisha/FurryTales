@@ -29,7 +29,7 @@ function Login() {
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
       <MDBInput
         wrapperClass="mb-4"
-        label="Username"
+        label="Email"
         id="form1"
         type="email"
         value={username}

@@ -241,25 +241,34 @@ app.get('/get-pet/:id', (req, res) => {
 });
 
 
-app.post('/signup', async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    // Check if the username already exists
-    const existingUser = await Users.findOne({ username });
-    if (existingUser) {
-      return res.status(400).send({ message: 'Username already exists' });
-    }
+const emailValidator = require("email-validator");
 
-    // If username doesn't exist, hash the password and save the user
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new Users({ username, password: hashedPassword });
-    await user.save();
-    res.send({ message: 'Saved successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: 'Server error' });
-  }
+app.post('/signup', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        // Check if the email is in the correct format
+        if (!emailValidator.validate(email)) {
+            return res.status(400).send({ message: 'Invalid email format' });
+        }
+
+        // Check if the email already exists
+        const existingUser = await Users.findOne({ username: email });
+        if (existingUser) {
+            return res.status(400).send({ message: 'Email already exists' });
+        }
+
+        // If email doesn't exist and is in the correct format, hash the password and save the user
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new Users({ username: email, password: hashedPassword });
+        await user.save();
+        res.send({ message: 'Saved successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: 'Server error' });
+    }
 });
+
+
 
 
 app.post('/login', async (req, res) => {
