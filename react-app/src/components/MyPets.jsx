@@ -1,52 +1,37 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
-import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { Row, Col, Card, Button } from 'react-bootstrap';
 
-function LikedPets() {
-
-    const navigate = useNavigate();
+function MyPets() {
     const [pets, setPets] = useState([]);
     const [filteredPets, setFilteredPets] = useState([]);
     const [search, setSearch] = useState('');
     const [selectedCategory, setSelectedCategory] = useState(null);
 
     useEffect(() => {
-        const url = 'http://localhost:4000/liked-pets';
-        let data = { userId: localStorage.getItem('userId') }
+        fetchData();
+    }, []);  
+
+    useEffect(() => {
+        applyFilters();
+    }, [search, selectedCategory, pets]);  
+
+    const fetchData = () => {
+        const url = 'http://localhost:4000/my-pets';
+        let data = { userId: localStorage.getItem('userId') };
         axios.post(url, data)
             .then((res) => {
-                if (res.data.pets) {
+                console.log("Response from server:", res.data);
+                if (res.data.message === 'success' && res.data.pets) {
+                    console.log("Pets data received:", res.data.pets);
                     setPets(res.data.pets);
                 }
             })
             .catch((err) => {
-                alert('Server Err.')
-            })
-    }, [])
-
-    useEffect(() => {
-        applyFilters();
-    }, [search, selectedCategory, pets]);
-
-    const handleRemoveFromWishlist = (petId) => {
-        const url = 'http://localhost:4000/remove-from-wishlist';
-        const data = { userId: localStorage.getItem('userId'), petId };
-        axios.post(url, data)
-            .then((res) => {
-                // Update the pets list after removing the pet from the wishlist
-                const updatedPets = pets.filter(pet => pet._id !== petId);
-                setPets(updatedPets);
-            })
-            .catch((err) => {
-                console.error('Error removing pet from wishlist:', err);
-                alert('Server error');
+                console.error('Error fetching pets:', err);
+                alert('Server Err.');
             });
-    };
-
-    const handlePet = (id) => {
-        navigate('/pet/' + id);
     };
 
     const handleSearch = (value) => {
@@ -76,17 +61,33 @@ function LikedPets() {
         setFilteredPets(filteredPets);
     };
 
+    const removePet = (petId) => {
+        const url = 'http://localhost:4000/remove-pet';
+        const data = { petId: petId };
+        axios.post(url, data)
+            .then((res) => {
+                console.log("Response from server:", res.data);
+                if (res.data.message === 'Pet removed successfully.') {
+                    fetchData();
+                }
+            })
+            .catch((err) => {
+                console.error('Error removing pet:', err);
+                alert('Server Err.');
+            });
+    };
+
     return (
         <div>
             <Header />
 
-            <h1 style={{color: '#34495E' , textAlign:'center', margin:'1rem'}}>Wishlist </h1>
+            <h2 style={{color:'#34495E'}}>My Pets</h2>
             <Row>
                 {filteredPets.length > 0 ?
                     (filteredPets.map((item, index) => (
                         <Col md={4} key={index}>
-                            <Card style={{ height: '500px' }}>
-                                <Card.Img width="300px" height="200px" src={`http://localhost:4000/${item.pimage}`} alt="" />
+                            <Card style={{height:'500px'}}>
+                                <Card.Img variant="top" src={`http://localhost:4000/${item.pimage}`} alt="" />
                                 <Card.Body>
   <Card.Title>{item.pname} | {item.category}</Card.Title>
   <Card.Text className="text-danger">{item.price}</Card.Text>
@@ -104,4 +105,4 @@ function LikedPets() {
     );
 }
 
-export default LikedPets;
+export default MyPets;

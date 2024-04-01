@@ -1,0 +1,18 @@
+/* ProductButtons.css */
+
+.product-button {
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 20px;
+  color: #000; 
+  border-color: #e0d9d9;
+  width: 80px;
+  height: 40px;
+}
+
+.product-button.selected {
+  color: white;
+  background-color: #34495E; 
+  font-weight: bold;
+}

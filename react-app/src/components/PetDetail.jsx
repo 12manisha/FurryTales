@@ -46,18 +46,21 @@ function PetDetail() {
         <>
             <Header />
             <div className="container mt-5">
-                <h2 className="mb-4">Pet Details</h2>
+                <h2 style={{color:'#34495E'}} className="mb-4">Pet Details</h2>
                 {pet ? (
                     <div className="row">
                         <div className="col-md-6">
-                            <img className="img-fluid" src={`http://localhost:4000/${pet.pimage}`} alt="" />
+                            <img style={{padding:'2rem'}} className="img-fluid" src={`http://localhost:4000/${pet.pimage}`} alt="" />
                         </div>
                         <div className="col-md-6">
-                            <h5>{pet.pname}</h5>
-                            <p>{pet.pdesc}</p>
-                            <p>Category: {pet.category}</p>
-                            <p className="text-danger">Price: Rs. {pet.price}, To Buy Contact on this number - {contactNumber}</p>
-                            <button onClick={() => handleLike(pet._id)} style={{backgroundColor: isAddedToWishlist ? 'green' : 'initial'}}>Wishlist</button>
+                            <h3 style={{margin:'1.4rem 0' }}>{pet.pname}</h3>
+                            
+                            <h4 style={{margin:'1.2rem 0' }}><span style={{ fontWeight: 'bold' }}>Category:</span> {pet.category}</h4>
+
+                            <h6 style={{margin:'1.2rem 0' }} className="text-danger">Price: Rs. {pet.price}
+                            <h6 style={{margin:'1.2rem 0' }} className="text-danger">To Buy Contact on this number - {contactNumber}</h6></h6>
+                            <p style={{margin:'1.2rem 0' }}>{pet.pdesc}</p>
+                            <button onClick={() => handleLike(pet._id)} style={{backgroundColor: isAddedToWishlist ? 'green' : 'initial', color: isAddedToWishlist ? 'white' : 'black' ,margin:'1rem', padding:'0.6rem', width:'10rem'}}><h3>Wishlist</h3></button>
                         </div>
                     </div>
                 ) : (
