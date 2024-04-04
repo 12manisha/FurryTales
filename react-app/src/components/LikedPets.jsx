@@ -93,6 +93,7 @@ function LikedPets() {
   <Card.Text className="text-success">
     {item.pdesc.length > 100 ? item.pdesc.slice(0, 100) + "..." : item.pdesc}
   </Card.Text>
+  <button className="btn btn-danger"  onClick={() => handleRemoveFromWishlist(item._id)}>Remove</button>
 </Card.Body>
                             </Card>
                         </Col>
@@ -100,6 +101,7 @@ function LikedPets() {
                     (<Col md={12}><p>No matching pets found.</p></Col>)
                 }
             </Row>
+
         </div>
     );
 }
