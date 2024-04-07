@@ -49,11 +49,18 @@ Open your browser and navigate to http://localhost:3000 to view the application.
 /my-pets: Get pets added by a user
 
 /remove-pet: Remove a pet from the store
+
 /add-address: Add a new address for a user
+
 /get-addresses: Get all addresses of a user
+
 /add-to-cart/:productId: Add a product to the user's cart
+
 /get-cart: Get the user's cart
+
 /empty-cart: Empty the user's cart
+
 /move-to-orders: Move items from the cart to orders
+
 /save-card-details: Save card details for a user
 
