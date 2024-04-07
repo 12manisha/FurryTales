@@ -1,8 +1,12 @@
 # FurryTales
 The project aims to develop a comprehensive e-commerce website tailored specifically for the sale of pets and related products. With the increasing demand for convenient online shopping experiences, particularly in niche markets such as pet ownership, this website endeavors to provide a user-friendly platform for both pet enthusiasts and pet product consumers.
+
 ![1](https://github.com/12manisha/FurryTales/assets/113535493/ed5e3d06-eddf-424f-b596-8ad8901b07ff)
+
 ![2](https://github.com/12manisha/FurryTales/assets/113535493/5a814e90-c506-4795-9883-f400bc4448f8)
+
 ![3](https://github.com/12manisha/FurryTales/assets/113535493/1bb64b28-2e90-4eba-a8c4-12837d0a327b)
+
 
 # Technologies Used
 Backend: Node.js with Express framework
