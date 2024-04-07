@@ -1,5 +1,5 @@
 # FurryTales
-This is a web application for managing pets. It provides features for users to sign up, log in, add pets for sale, buy pet products, like pets, manage a shopping cart, and more.
+The project aims to develop a comprehensive e-commerce website tailored specifically for the sale of pets and related products. With the increasing demand for convenient online shopping experiences, particularly in niche markets such as pet ownership, this website endeavors to provide a user-friendly platform for both pet enthusiasts and pet product consumers.
 
 Technologies Used
 Backend: Node.js with Express framework
