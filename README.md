@@ -35,12 +35,19 @@ Open your browser and navigate to http://localhost:3000 to view the application.
 
 # API Endpoints
 /signup: Sign up a new user
-login: Log in an existing user
+
+/login: Log in an existing user
+
 /add-pet: Add a new pet for sale
+
 /get-pets: Get all pets available for sale
+
 /like-pet: Like a pet
+
 /liked-pets: Get pets liked by a user
+
 /my-pets: Get pets added by a user
+
 /remove-pet: Remove a pet from the store
 /add-address: Add a new address for a user
 /get-addresses: Get all addresses of a user
