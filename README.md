@@ -1,7 +1,7 @@
 # FurryTales
 The project aims to develop a comprehensive e-commerce website tailored specifically for the sale of pets and related products. With the increasing demand for convenient online shopping experiences, particularly in niche markets such as pet ownership, this website endeavors to provide a user-friendly platform for both pet enthusiasts and pet product consumers.
 
-Technologies Used
+# Technologies Used
 Backend: Node.js with Express framework
 Database: MongoDB
 Authentication: JSON Web Tokens (JWT) for user authentication
@@ -10,7 +10,7 @@ File Uploads: multer for handling file uploads
 Frontend: React.js with React Router for routing and MDB React UI Kit for UI components
 Other Dependencies: cors, body-parser for middleware handling, email-validator for email validation
 
-Setup Instructions
+# Setup Instructions
 
 Clone the repository:
 git clone <repository_url>
@@ -33,7 +33,7 @@ npm start
 
 Open your browser and navigate to http://localhost:3000 to view the application.
 
-API Endpoints
+# API Endpoints
 /signup: Sign up a new user
 /login: Log in an existing user
 /add-pet: Add a new pet for sale
